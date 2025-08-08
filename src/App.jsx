@@ -3,7 +3,7 @@ import HeaderComponent from './components/header/HeaderComponent'
 
 const App = () => {
   return (
-    <div className='bg-background container mx-auto max-w-[1200px]'>
+    <div className='bg-lightBlue h-screen'>
       <HeaderComponent />
       <Outlet />
     </div>

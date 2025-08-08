@@ -6,3 +6,12 @@
     --color-text: #292d32;
     --color-lightBlue: #def3ff ;
 }
+
+@layer utilities {
+    .wrapper{
+        @apply container mx-auto max-w-[1200px];
+    }
+    .flex-centar-between{
+        @apply flex items-center justify-between;
+    }
+}
