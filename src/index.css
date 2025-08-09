@@ -12,6 +12,6 @@
         @apply container mx-auto max-w-[1200px];
     }
     .flex-centar-between{
-        @apply flex items-center justify-between;
+        @apply flex flex-row items-center justify-between;
     }
 }
