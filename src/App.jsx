@@ -9,7 +9,7 @@ axios.defaults.baseURL = "https://dummyjson.com"
 
 const App = () => {
   return (
-    <div className='bg-lightBlue h-screen'>
+    <div className='bg-lightBlue text-darkBlue'>
       <HeaderComponent />
       <Outlet />
     </div>
