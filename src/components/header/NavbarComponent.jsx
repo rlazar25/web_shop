@@ -1,4 +1,4 @@
-import logo from "../../../public/logo.png"
+import logo from "../../assets/logo.png"
 // react-router
 import { Link } from "react-router";
 // icons
@@ -11,7 +11,7 @@ const NavbarComponent = () => {
             <div className="wrapper py-6 flex flex-col justify-between gap-6 items-center lg:flex-row">
                 {/* logo and search */}
                 <div className="flex flex-col items-center lg:flex-row gap-10">
-                    <img src={logo} alt="logo" className="w-[200px] mx-auto" />
+                    <img src={logo} alt="logo" className="mx-auto" />
 
                     {/* search */}
                     <div className="bg-lightBlue text-darkBlue rounded-2xl ">

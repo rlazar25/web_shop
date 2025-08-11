@@ -4,7 +4,9 @@
     --color-darkBlue: #003f62;
     --color-orange: #eda415;
     --color-text: #292d32;
-    --color-lightBlue: #def3ff ;
+    --color-lightBlue: #eef9ff;
+    --color-midBlue: #9fc8de;
+
 }
 
 @layer utilities {

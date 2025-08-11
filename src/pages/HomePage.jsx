@@ -1,8 +1,9 @@
+import CategoriesComponent from "../components/header/CategoriesComponent"
 
 const HomePage = () => {
   return (
-    <div> 
-      HomePage
+    <div>
+       <CategoriesComponent />  
     </div>
   )
 }

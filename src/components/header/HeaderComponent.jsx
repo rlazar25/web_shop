@@ -6,7 +6,7 @@ const HeaderComponent = () => {
     <div>
       <HeaderInfoComponent />
       <NavbarComponent />
-      HeaderComponent
+      
     </div>
   )
 }
