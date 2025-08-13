@@ -17,3 +17,9 @@
         @apply flex flex-row items-center justify-between;
     }
 }
+
+@layer components{
+    .btn{
+        @apply duration-200 hover:bg-transparent hover:text-darkBlue  border-darkBlue border-[2px] cursor-pointer bg-darkBlue px-5 py-2 rounded-lg 
+    }
+}

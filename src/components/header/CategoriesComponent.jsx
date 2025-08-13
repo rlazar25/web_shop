@@ -20,7 +20,7 @@ const CategoriesComponent = () => {
     <div className=" bg-midBlue text-lightBlue">
             <div className="wrapper mx-auto py-3 flex flex-wrap items-start justify-center lg:justify-between" >
                 <div >
-                    <button onClick={() => dispatch(toggleCategoryAction())} className=" duration-200 hover:bg-transparent hover:text-darkBlue  border-darkBlue border-[2px] cursor-pointer bg-darkBlue px-5 py-2 rounded-lg ">{categoryToggle ? 'Close' : 'Show'} Category</button>
+                    <button onClick={() => dispatch(toggleCategoryAction())} className="btn">{categoryToggle ? 'Close' : 'Show'} Category</button>
                 </div>
                 {categoryToggle && <ul className="flex flex-wrap justify-center lg:justify-end my-4 lg:my-0 gap-2 lg:w-[80%] xl:w-[87%] ">
                     {categoryLoad && allCategories.map((category, index) => {
