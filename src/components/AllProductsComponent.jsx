@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux"
+import { saveAllProductsAction } from "../store/productsSlice";
 // componenets
 import ProductComponent from "./ProductComponent";
 import productsServices from "../services/productsServices";
-import { saveAllProductsAction } from "../store/productsSlice";
 
 const AllProductsComponents = () => {
 
