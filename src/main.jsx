@@ -10,6 +10,7 @@ import ErrorPage from './pages/ErrorPage.jsx'
 // redux
 import { Provider } from 'react-redux'
 import store from './store/store.js'
+import SingleProductPage from './pages/SingleProductPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />
+      },
+      {
+        path: '/singlePage/:id',
+        element: <SingleProductPage />
       }
     ]
   }
