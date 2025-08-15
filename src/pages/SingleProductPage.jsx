@@ -28,19 +28,19 @@ const SingleProductPage = () => {
   }, [])
 
   return (
-    productLoad ? <div className="wrapper ">
-      <div className="flex py-6">
+    productLoad ? <div className="wrapper px-4 lg:px-0">
+      <div className="flex flex-col items-center lg:flex-row py-6">
         {/* left side */}
-        <div className="w-[50%] flex flex-col items-center">
+        <div className="lg:w-[50%] flex flex-col items-center">
           <img src={product.images[currentImage]} alt={product.title} className="w-[400px]" />
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {product.images.map((img, index) => {
               return <div key={index} className="w-[70px] border border-darkBlue rounded-lg cursor-pointer overflow-hidden" onClick={() => setCurrentImage(index)}><img src={img} className="hover:scale-110 duration-300" /></div>
             })}
           </div>
         </div>
         {/* right side */}
-        <div className="w-[50%]">
+        <div className="lg:w-[50%]">
           {/* product info */}
           <div className="flex flex-col gap-2 border-b-[2px] py-6">
             <h1 className="text-4xl font-semibold">{product.title}</h1>
