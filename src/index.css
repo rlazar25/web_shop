@@ -6,7 +6,8 @@
     --color-text: #292d32;
     --color-lightBlue: #eef9ff;
     --color-midBlue: #9fc8de;
-
+    --color-red: #c80000;
+    --color-green: #1e8f00;
 }
 
 @layer utilities {

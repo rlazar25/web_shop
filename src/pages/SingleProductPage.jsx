@@ -8,6 +8,9 @@ import { Rating } from "@mui/material";
 // icons
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
+// redux and slices
+import { useDispatch } from "react-redux";
+import { addToCartAction } from "../store/CartSlice";
 
 const SingleProductPage = () => {
 
@@ -16,13 +19,13 @@ const SingleProductPage = () => {
   const [currentImage, setCurrentImage] = useState(0)
   const { id } = useParams();
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     productsServices.getSingleProductService(id)
       .then(res => {
         setProduct(res.data)
         setProductLoad(true)
-        console.log(res.data);
-
       })
       .catch(err => console.log(err))
   }, [])
@@ -39,6 +42,7 @@ const SingleProductPage = () => {
             })}
           </div>
         </div>
+
         {/* right side */}
         <div className="lg:w-[50%]">
           {/* product info */}
@@ -46,7 +50,10 @@ const SingleProductPage = () => {
             <h1 className="text-4xl font-semibold">{product.title}</h1>
             <p className="text-2xl">${product.price}</p>
             <Rating value={product.rating} readOnly />
-            <p>Availability: <span className="font-semibold">{product.availabilityStatus}</span> </p>
+            <p>Availability: {product.availabilityStatus === "In Stock" ?
+              <span className="text-green font-semibold">{product.availabilityStatus}</span> :
+              <span className="text-red font-semibold">{product.availabilityStatus}</span>}
+            </p>
             <p>Hurry up! only <span className="font-semibold">{product.stock}</span> product left in stock!</p>
             <p>{product.description}</p>
             {/* tags */}
@@ -62,7 +69,7 @@ const SingleProductPage = () => {
             <p>Total Price: $ { }</p>
             {/* interaction buttons */}
             <div className="flex gap-6 items-center mt-3 ">
-              <button className="btn text-lightBlue hover:text-darkBlue ">Add To Cart</button>
+              <button onClick={() => dispatch(addToCartAction(product))} className="btn text-lightBlue hover:text-darkBlue ">Add To Cart</button>
               <FaRegHeart size={30} className="cursor-pointer" />
             </div>
           </div>
@@ -78,7 +85,7 @@ const SingleProductPage = () => {
       <div>
         <h2 className="text-xl text-center font-semibold">Reviewers:</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {/* commnet block */}
+          {/* commnet block */}
           {product.reviews.map((reviewer, index) => {
             return <div key={index} className="border cardShadow p-5 rounded-lg flex flex-col items-center my-3">
               {/* icon, name and rating  */}
