@@ -11,6 +11,7 @@ import ErrorPage from './pages/ErrorPage.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import SingleProductPage from './pages/SingleProductPage.jsx'
+import CartPage from './pages/CartPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: '/singlePage/:id',
+        path: '/singleProduct/:id',
         element: <SingleProductPage />
+      },
+      {
+        path: '/cart',
+        element: <CartPage />
       }
     ]
   }

@@ -2,16 +2,24 @@ import logo from "../../assets/logo.png"
 // react-router
 import { Link } from "react-router";
 // icons
-import { FaShoppingCart, FaHeart  } from "react-icons/fa";
+import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
+// redux
+import { useSelector } from "react-redux";
+
 
 const NavbarComponent = () => {
+
+    const { cartCounter } = useSelector(state => state.cartStore)
+
     return (
         <div className="bg-darkBlue text-lightBlue">
             <div className="wrapper py-6 flex flex-col justify-between gap-6 items-center lg:flex-row">
                 {/* logo and search */}
                 <div className="flex flex-col items-center lg:flex-row gap-10">
-                    <img src={logo} alt="logo" className="mx-auto" />
+                    <Link to={'/'}>
+                        <img src={logo} alt="logo" className="mx-auto" />
+                    </Link>
 
                     {/* search */}
                     <div className="bg-lightBlue text-darkBlue rounded-2xl ">
@@ -22,9 +30,9 @@ const NavbarComponent = () => {
 
                 {/* navigation */}
                 <nav className="flex-centar-between gap-8">
-                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1">< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">0</span></div>
-                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1">< FaHeart size={20}/> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">0</span></div>
-                    <div className="flex-centar-between gap-1">< IoPersonSharp size={20}/> <Link>Profile</Link></div>
+                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
+                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1">< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">0</span></div>
+                    <div className="flex-centar-between gap-1">< IoPersonSharp size={20} /> <Link>Profile</Link></div>
                 </nav>
             </div>
         </div>

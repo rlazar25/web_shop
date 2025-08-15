@@ -22,17 +22,37 @@ const cartSlice = createSlice({
 
       // if product doesn't exist, add it. Otherwise increase its count
       if (findIndex === null) {
-        copyCart.push({...action.payload, count: 1, productPriceTotal: action.payload.price,
+        copyCart.push({
+          ...action.payload, quantity: 1, productPriceTotal: action.payload.price,
         });
         state.cartCounter++;
       } else {
-        copyCart[findIndex].count++;
+        copyCart[findIndex].quantity++;
       }
+
+      state.cartProducts = copyCart;
+    },
+
+    removeProductAction: (state, action) => {
+      let copyCart = [...state.cartProducts];
+      let findIndex = null;
+
+      // checking product by id
+      copyCart.find((product, index) => {
+        if (product.id === action.payload.id) {
+          findIndex = index;
+          return;
+        }
+      });
+
+    // product remove and decrease cartCounter
+      copyCart.splice(findIndex, 1);
+      state.cartCounter--;
 
       state.cartProducts = copyCart;
     },
   },
 });
 
-export const { addToCartAction } = cartSlice.actions;
+export const { addToCartAction, removeProductAction } = cartSlice.actions;
 export default cartSlice.reducer;

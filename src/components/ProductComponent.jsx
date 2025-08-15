@@ -1,10 +1,16 @@
 import { Rating } from "@mui/material"
 // icons
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+// router
 import { Link } from "react-router";
-
+// redux and slices
+import { useDispatch } from "react-redux";
+import { addToCartAction } from "../store/CartSlice";
 
 const ProductComponent = ({ product }) => {
+
+    const dispatch = useDispatch();
+
     return (
         <div className="flex flex-col justify-between cardShadow rounded-lg p-4 ">
             <FaRegHeart className="self-end cursor-pointer absolute" size={20} />
@@ -22,9 +28,9 @@ const ProductComponent = ({ product }) => {
 
                 {/* buttons */}
                 <div className="flex justify-between mt-2 gap-3">
-                    <Link to={`/singlePage/${product.id}`} className="duration-300 text-center w-full cursor-pointer border-[2px] border-darkBlue py-2 px-5 rounded-lg hover:bg-darkBlue hover:text-lightBlue ">View More</Link>
+                    <Link to={`/singleProduct/${product.id}`} className="duration-300 text-center w-full cursor-pointer border-[2px] border-darkBlue py-2 px-5 rounded-lg hover:bg-darkBlue hover:text-lightBlue ">View More</Link>
                     <div className="translate duration-300 cursor-pointer border-[2px] border-orange py-2 px-3 rounded-lg hover:bg-orange hover:text-lightBlue flex items-center justify-center">
-                        <FaShoppingCart size={20} />
+                        <FaShoppingCart onClick={() => dispatch(addToCartAction(product))} size={20} />
                     </div>
                 </div>
             </div>
