@@ -8,6 +8,7 @@
     --color-midBlue: #9fc8de;
     --color-red: #c80000;
     --color-green: #1e8f00;
+    --color-grey: #545454
 }
 
 @layer utilities {

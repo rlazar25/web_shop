@@ -5,11 +5,21 @@ import { Link } from "react-router"
 // redux and slices
 import { useDispatch, useSelector } from "react-redux"
 import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, removeProductAction } from "../store/CartSlice";
+// react
+import { useRef, useState } from "react";
 
 const CartPage = () => {
 
+    const [activeCoupon, setActiveCoupon] = useState("");
     const { cartProducts, totalPrice } = useSelector(state => state.cartStore);
     const dispatch = useDispatch();
+
+    const couponRef = useRef();
+
+    const handleApplyCoupon = () => {
+        setActiveCoupon(couponRef.current.value);
+        couponRef.current.value = ""
+    }
 
     return (
         <div className="wrapper py-[40px]">
@@ -33,7 +43,7 @@ const CartPage = () => {
                                         <TableRow key={product.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row">
                                                 <Link to={`/singleProduct/${product.id}`} className="flex gap-2 items-center">
-                                                    <img src={product.thumbnail} alt="" className='w-[70px] h-[70px] border border-mainBlue rounded-lg object-cover ' />
+                                                    <img src={product.thumbnail} alt={product.title} className='w-[70px] border border-mainBlue rounded-lg object-contain ' />
                                                     <p title={product.title} className="hidden md:inline font-semibold text-mainBlue truncate ">{product.title}</p>
                                                 </Link>
                                             </TableCell>
@@ -57,7 +67,7 @@ const CartPage = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        <div className="flex items-center justify-between my-5 gap-4">
+                        <div className="flex items-center justify-between lg:justify-start my-5 gap-4">
                             <Link to="/" className="btn bg-orange border-orange text-lightBlue hover:bg-transparent hover:text-orange">Continue shopping</Link>
                             <button onClick={() => dispatch(clearCartAction())} className="btn bg-red border-red text-lightBlue hover:bg-transparent hover:text-red">Clear Cart</button>
                         </div>
@@ -74,31 +84,42 @@ const CartPage = () => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell >
-                                            <div className="flex justify-between items-center">
+                                            <div className="py-2 flex justify-between items-center text-darkBlue">
                                                 <p className="text-lg">Subtotal:</p>
-                                                <p className="font-semibold text-xl">${totalPrice.toFixed(2)}</p>
+                                                <p className={activeCoupon === "kale" ?
+                                                    "font-semibold text-xl line-through" :
+                                                    "font-semibold text-xl "}>${totalPrice.toFixed(2)}</p>
                                             </div>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow >
+                                        {/* coupon code */}
                                         <TableCell>
-                                            <div className="flex flex-col gap-3">
-                                                <input type="text" className="border-[2px] border-darkBlue p-2 rounded-lg" placeholder="Enter coupon code" />
-                                                <button className="btn text-lightBlue hover:text-darkBlue">Apply Coupon Code</button>
+                                            <div className="flex flex-col gap-3 py-2">
+                                                <input
+                                                    ref={couponRef}
+                                                    type="text"
+                                                    className="border-[2px] border-darkBlue p-2 rounded-lg placeholder:text-midBlue"
+                                                    placeholder="Enter coupon code for discount" />
+                                                {activeCoupon === "kale" ?
+                                                    <button className="btn text-lightBlue bg-grey line-through" >Coupon Code Applied</button> :
+                                                    <button className="btn text-lightBlue hover:text-darkBlue" onClick={handleApplyCoupon}>Apply Coupon Code</button>
+                                                }
                                             </div>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>
-                                            <div className="flex justify-between items-center">
+                                            <div className="py-2 flex justify-between items-center text-darkBlue">
                                                 <p className="text-lg">Total amount:</p>
-                                                <p className="font-semibold text-xl">${totalPrice.toFixed(2)}</p>
+                                                <p className="font-semibold text-xl">${activeCoupon === "kale" ? (totalPrice / 2).toFixed(2) : totalPrice.toFixed(2)}</p>
                                             </div>
                                         </TableCell>
                                     </TableRow>
+                                    {/* buy / checkout */}
                                     <TableRow>
                                         <TableCell>
-                                                <button className="btn text-lightBlue hover:text-darkBlue w-full">Buy</button>
+                                            <button className="btn my-2 text-lightBlue hover:text-darkBlue w-full">Buy</button>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
