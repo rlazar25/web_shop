@@ -5,7 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     cartProducts: [],
     cartCounter: 0,
-    cartLoader: false,
+    totalPrice: 0
   },
   reducers: {
     addToCartAction: (state, action) => {
@@ -26,8 +26,10 @@ const cartSlice = createSlice({
           ...action.payload, quantity: 1, productPriceTotal: action.payload.price,
         });
         state.cartCounter++;
+        state.totalPrice += action.payload.price
       } else {
         copyCart[findIndex].quantity++;
+        state.totalPrice += action.payload.price
       }
 
       state.cartProducts = copyCart;
@@ -48,11 +50,49 @@ const cartSlice = createSlice({
     // product remove and decrease cartCounter
       copyCart.splice(findIndex, 1);
       state.cartCounter--;
+      state.totalPrice -= action.payload.productPriceTotal * action.payload.quantity
 
       state.cartProducts = copyCart;
     },
+    decreaseQuantityAction: (state, action) => {
+      let copyCart = [...state.cartProducts];
+      let findIndex = null;
+
+      copyCart.find((product,index) => {
+        if(product.id === action.payload.id){
+          findIndex = index;
+          return;
+        }
+      });
+      // decrease quantity and price
+      if(copyCart[findIndex].quantity > 1){
+        copyCart[findIndex].quantity--;
+        state.totalPrice -= action.payload.price
+      }
+    },
+    increaseQuantityAction: (state, action) => {
+      let copyCart = [...state.cartProducts];
+      let findIndex = null;
+
+      copyCart.find((product,index) => {
+        if(product.id === action.payload.id){
+          findIndex = index;
+          return;
+        }
+      });
+      // increase quantity and price
+      if(copyCart[findIndex].quantity < copyCart[findIndex].stock){
+        copyCart[findIndex].quantity++;
+        state.totalPrice += action.payload.price
+      }
+    },
+    clearCartAction: (state) => {
+      state.cartProducts = [];
+      state.cartCounter = 0;
+      state.totalPrice = 0
+    }
   },
 });
 
-export const { addToCartAction, removeProductAction } = cartSlice.actions;
+export const { addToCartAction, removeProductAction, decreaseQuantityAction, increaseQuantityAction, clearCartAction } = cartSlice.actions;
 export default cartSlice.reducer;
