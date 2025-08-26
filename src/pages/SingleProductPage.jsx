@@ -10,7 +10,7 @@ import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 // redux and slices
 import { useDispatch } from "react-redux";
-import { addToCartAction } from "../store/CartSlice";
+import { addToCartAction } from "../store/cartSlice";
 
 const SingleProductPage = () => {
 

@@ -5,7 +5,7 @@ import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router";
 // redux and slices
 import { useDispatch } from "react-redux";
-import { addToCartAction } from "../store/CartSlice";
+import { addToCartAction } from "../store/cartSlice";
 
 const ProductComponent = ({ product }) => {
 

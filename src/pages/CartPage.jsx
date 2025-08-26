@@ -4,7 +4,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { Link } from "react-router"
 // redux and slices
 import { useDispatch, useSelector } from "react-redux"
-import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, removeProductAction } from "../store/CartSlice";
+import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, removeProductAction } from "../store/cartSlice";
 // react
 import { useRef, useState } from "react";
 
