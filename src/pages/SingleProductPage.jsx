@@ -9,8 +9,9 @@ import { Rating } from "@mui/material";
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 // redux and slices
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
+import { addToFavoriteAction } from "../store/favoriteSlice";
 
 const SingleProductPage = () => {
 
@@ -18,6 +19,8 @@ const SingleProductPage = () => {
   const [productLoad, setProductLoad] = useState(false);
   const [currentImage, setCurrentImage] = useState(0)
   const { id } = useParams();
+
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -29,6 +32,12 @@ const SingleProductPage = () => {
       })
       .catch(err => console.log(err))
   }, [])
+
+
+  const handleFavorite = (product) => {
+    dispatch(addToFavoriteAction(product))
+    setIsFavorite(!isFavorite)
+  }
 
   return (
     productLoad ? <div className="wrapper px-4 lg:px-0">
@@ -68,9 +77,14 @@ const SingleProductPage = () => {
             <p>Quantity: { }</p>
             <p>Total Price: $ { }</p>
             {/* interaction buttons */}
-            <div className="flex gap-6 items-center mt-3 ">
-              <button onClick={() => dispatch(addToCartAction(product))} className="btn text-lightBlue hover:text-darkBlue ">Add To Cart</button>
-              <FaRegHeart size={30} className="cursor-pointer" />
+            <div className="flex gap-6 items-center mt-3 " >
+              <button onClick={() => dispatch(addToCartAction(product))} className="btn text-lightBlue hover:text-darkBlue flex  items-center gap-2">Add To Cart <FaShoppingCart /></button>
+              <div className="cursor-pointer" onClick={() => handleFavorite(product)}>
+                {isFavorite ?
+                  <FaHeart size={30} /> :
+                  <FaRegHeart size={30} className="cursor-pointer" />
+                }
+              </div>
             </div>
           </div>
           {/* policy, warranty,shipping */}

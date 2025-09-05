@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 const NavbarComponent = () => {
 
     const { cartCounter } = useSelector(state => state.cartStore)
+    const {favoriteCounter} = useSelector(state => state.favoriteStore)
 
     return (
         <div className="bg-darkBlue text-lightBlue">
@@ -31,7 +32,7 @@ const NavbarComponent = () => {
                 {/* navigation */}
                 <nav className="flex-centar-between gap-8">
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
-                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1">< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">0</span></div>
+                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{favoriteCounter}</span></div>
                     <div className="flex-centar-between gap-1">< IoPersonSharp size={20} /> <Link>Profile</Link></div>
                 </nav>
             </div>

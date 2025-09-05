@@ -1,3 +1,5 @@
+import { useState } from "react";
+// material UI
 import { Rating } from "@mui/material"
 // icons
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
@@ -6,14 +8,27 @@ import { Link } from "react-router";
 // redux and slices
 import { useDispatch } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
+import { addToFavoriteAction } from "../store/favoriteSlice";
 
 const ProductComponent = ({ product }) => {
 
+    const [isFavorite, setIsFavorite] = useState(false)
     const dispatch = useDispatch();
+
+    const handleFavorite = () => {
+        dispatch(addToFavoriteAction(product))
+        setIsFavorite(!isFavorite)
+    }
 
     return (
         <div className="flex flex-col justify-between cardShadow rounded-lg p-4 ">
-            <FaRegHeart className="self-end cursor-pointer absolute" size={20} />
+            {/* favorite button */}
+            <div className="self-end cursor-pointer absolute" onClick={() => handleFavorite(product)}>
+                {isFavorite ?
+                    <FaHeart size={20} /> :
+                    <FaRegHeart size={20} />
+                }
+            </div>
 
             {/* product img */}
             <img className="w-[70%] mx-auto " src={product.thumbnail} alt={product.title} />
@@ -24,7 +39,7 @@ const ProductComponent = ({ product }) => {
                 <div className="flex justify-between items-center">
                     <p>${product.price}</p>
                     <Rating value={product.rating} size="small" readOnly />
-                </div>  
+                </div>
 
                 {/* buttons */}
                 <div className="flex justify-between mt-2 gap-3">
