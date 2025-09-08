@@ -8,7 +8,7 @@ import { Link } from "react-router";
 // redux and slices
 import { useDispatch } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
-import { addToFavoriteAction } from "../store/favoriteSlice";
+import { handleFavoriteAction } from "../store/favoriteSlice";
 
 const ProductComponent = ({ product }) => {
 
@@ -16,7 +16,7 @@ const ProductComponent = ({ product }) => {
     const dispatch = useDispatch();
 
     const handleFavorite = () => {
-        dispatch(addToFavoriteAction(product))
+        dispatch(handleFavoriteAction(product))
         setIsFavorite(!isFavorite)
     }
 

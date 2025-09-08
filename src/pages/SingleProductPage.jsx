@@ -9,9 +9,9 @@ import { Rating } from "@mui/material";
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 // redux and slices
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
-import { addToFavoriteAction } from "../store/favoriteSlice";
+import { handleFavoriteAction } from "../store/favoriteSlice";
 
 const SingleProductPage = () => {
 
@@ -35,7 +35,7 @@ const SingleProductPage = () => {
 
 
   const handleFavorite = (product) => {
-    dispatch(addToFavoriteAction(product))
+    dispatch(handleFavoriteAction(product))
     setIsFavorite(!isFavorite)
   }
 

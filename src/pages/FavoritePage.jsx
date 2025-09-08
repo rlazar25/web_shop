@@ -1,5 +1,8 @@
+// redux
 import { useSelector } from "react-redux"
+// react router dom
 import { Link } from "react-router"
+// components
 import ProductComponent from "../components/ProductComponent"
 
 const FavoritePage = () => {

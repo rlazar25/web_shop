@@ -7,7 +7,7 @@ const favoriteSlice = createSlice({
     favoriteCounter: 0,
   },
   reducers: {
-    addToFavoriteAction: (state, action) => {
+    handleFavoriteAction: (state, action) => {
       let copyFavorite = [...state.favoriteProducts];
       let findIndex = null;
 
@@ -33,5 +33,5 @@ const favoriteSlice = createSlice({
   },
 });
 
-export const { addToFavoriteAction } = favoriteSlice.actions;
+export const { handleFavoriteAction } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
