@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux"
-import { saveAllProductsAction } from "../store/productsSlice";
+import { loadMoreAction, saveAllProductsAction } from "../store/productsSlice";
 // componenets
 import ProductComponent from "./ProductComponent";
 // services
@@ -10,9 +10,8 @@ import categoriesServices from "../services/categoriesServices";
 
 const AllProductsComponents = () => {
 
-  const { allProducts, productsLoad } = useSelector(state => state.productsStore);
+  const { allProducts, productsLoad, loadMore } = useSelector(state => state.productsStore);
   const { currentCategory } = useSelector(state => state.categoriesStore)
-  const [loadMore, setLoadMore] = useState(20);
   const dispatch = useDispatch();
 
   // load and category select 
@@ -37,9 +36,10 @@ const AllProductsComponents = () => {
         }) : <>Loading...</>}
       </div>
       {/* load more products button */}
-      <div className="flex justify-center">
-        <button onClick={() => setLoadMore(loadMore + 20)} className="btn text-lightBlue hover:text-darkBlue px-[30px]">Load More</button>
+      {!currentCategory && <div className="flex justify-center">
+        <button onClick={() => dispatch(loadMoreAction())} className="btn text-lightBlue hover:text-darkBlue px-[30px]">Load More</button>
       </div>
+      }
     </div>
   )
 }

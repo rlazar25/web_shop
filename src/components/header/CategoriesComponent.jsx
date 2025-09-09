@@ -30,8 +30,9 @@ const CategoriesComponent = () => {
                         onClick={() => dispatch(toggleCategoryAction())}
                         className="btn"
                     >{categoryToggle ? 'Close' : 'Show'} Category</button>
+                    {/* all categories */}
                     <button
-                        className={categoryToggle ? "btn" : "hidden"}
+                        className={!categoryToggle ? "hidden" : currentCategory === "" ? "btn py-1" : "btnCategory"}
                         onClick={() => handleCurrentCategory("")}
                     >All Categories</button>
                 </div>

@@ -5,14 +5,20 @@ const productsSlice = createSlice({
   initialState: {
     allProducts: [],
     productsLoad: false,
+    loadMore: 20,
   },
   reducers: {
     saveAllProductsAction: (state, action) => {
-        state.allProducts = action.payload;
-        state.productsLoad = true
+      state.allProducts = action.payload;
+      state.productsLoad = true;
+    },
+    loadMoreAction: (state, action) => {
+      state.loadMore += 20;
+      console.log(state.loadMore);
+      
     },
   },
 });
 
-export const { saveAllProductsAction } = productsSlice.actions;
+export const { saveAllProductsAction, loadMoreAction } = productsSlice.actions;
 export default productsSlice.reducer;
