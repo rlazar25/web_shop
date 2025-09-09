@@ -19,7 +19,6 @@ const favoriteSlice = createSlice({
       });
 
       if (findIndex === null) {
-        console.log(action.payload);
         copyFavorite.push({...action.payload})
         state.favoriteCounter++;        
         state.isFavorite = !state.isFavorite

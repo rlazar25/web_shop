@@ -5,13 +5,16 @@ import { Link } from "react-router";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 // redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleSearchAction } from "../../store/productsSlice";
 
 
 const NavbarComponent = () => {
 
     const { cartCounter } = useSelector(state => state.cartStore)
-    const {favoriteCounter} = useSelector(state => state.favoriteStore)
+    const { favoriteCounter } = useSelector(state => state.favoriteStore)
+
+    const dispatch = useDispatch()
 
     return (
         <div className="bg-darkBlue text-lightBlue">
@@ -23,10 +26,12 @@ const NavbarComponent = () => {
                     </Link>
 
                     {/* search */}
-                    <div className="bg-lightBlue text-darkBlue rounded-2xl ">
-                        <input type="text" className="px-6 py-2.5 placeholder:text-darkBlue focus:outline-0" placeholder="Search products" />
-                        <button className="px-6 py-2.5 bg-orange rounded-r-2xl text-darkBlue font-semibold cursor-pointer">Search</button>
-                    </div>
+                    <input
+                        type="text"
+                        className="bg-lightBlue rounded-2xl px-6 py-2 text-darkBlue placeholder:text-darkBlue focus:outline-0 w-fit"
+                        placeholder="Search products"
+                        onChange={(e) => dispatch(handleSearchAction(e.target.value))}
+                    />
                 </div>
 
                 {/* navigation */}

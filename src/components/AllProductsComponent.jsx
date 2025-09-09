@@ -10,22 +10,26 @@ import categoriesServices from "../services/categoriesServices";
 
 const AllProductsComponents = () => {
 
-  const { allProducts, productsLoad, loadMore } = useSelector(state => state.productsStore);
+  const { allProducts, productsLoad, loadMore, searchProducts } = useSelector(state => state.productsStore);
   const { currentCategory } = useSelector(state => state.categoriesStore)
   const dispatch = useDispatch();
 
-  // load and category select 
+  // search, load and category select 
   useEffect(() => {
-    if (currentCategory) {
+    if (searchProducts) {                                                 // search
+      productsServices.searchProductsService(searchProducts)
+        .then(res => dispatch(saveAllProductsAction(res.data.products)))
+        .catch(err => console.log(err))
+    } else if (currentCategory) {                                         // category
       categoriesServices.getCategoryService(currentCategory)
         .then(res => dispatch(saveAllProductsAction(res.data.products)))
         .catch(err => console.log(err))
-    } else {
+    } else {                                                              // load
       productsServices.getAllProductsService(loadMore)
         .then(res => dispatch(saveAllProductsAction(res.data.products)))
         .catch(err => console.log(err))
     }
-  }, [loadMore, currentCategory])
+  }, [searchProducts, currentCategory, loadMore])
 
   return (
     <div>

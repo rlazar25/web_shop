@@ -6,19 +6,21 @@ const productsSlice = createSlice({
     allProducts: [],
     productsLoad: false,
     loadMore: 20,
+    searchProducts: '',
   },
   reducers: {
     saveAllProductsAction: (state, action) => {
       state.allProducts = action.payload;
       state.productsLoad = true;
     },
-    loadMoreAction: (state, action) => {
+    loadMoreAction: (state) => {
       state.loadMore += 20;
-      console.log(state.loadMore);
-      
     },
+    handleSearchAction: (state, action) =>{
+      state.searchProducts = action.payload
+    }
   },
 });
 
-export const { saveAllProductsAction, loadMoreAction } = productsSlice.actions;
+export const { saveAllProductsAction, loadMoreAction, handleSearchAction } = productsSlice.actions;
 export default productsSlice.reducer;
