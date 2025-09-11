@@ -1,3 +1,5 @@
+import { useState } from "react";
+// logo
 import logo from "../../assets/logo.png"
 // react-router
 import { Link } from "react-router";
@@ -7,14 +9,21 @@ import { IoPersonSharp } from "react-icons/io5";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { handleSearchAction } from "../../store/productsSlice";
+import { logoutUser } from "../../store/userSlice";
 
 
 const NavbarComponent = () => {
 
     const { cartCounter } = useSelector(state => state.cartStore)
     const { favoriteCounter } = useSelector(state => state.favoriteStore)
+    const { isLogged, firstName } = useSelector(state => state.userStore)
+    const [userMenu, setUserMenu] = useState(false)
 
     const dispatch = useDispatch()
+
+    const handleUser = () => {
+        setUserMenu(!userMenu)
+    }
 
     return (
         <div className="bg-darkBlue text-lightBlue">
@@ -38,7 +47,18 @@ const NavbarComponent = () => {
                 <nav className="flex-centar-between gap-8">
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{favoriteCounter}</span></div>
-                    <div className="flex-centar-between gap-1">< IoPersonSharp size={20} /> <Link>Profile</Link></div>
+                    <div className="flex-centar-between gap-1">< IoPersonSharp size={20} />
+                        {isLogged ?
+                            <div className="relative">
+                                <p onClick={handleUser} className="cursor-pointer">{firstName}</p> 
+                                <div className={userMenu ? "bg-midBlue cardShadow absolute text-darkBlue flex flex-col items-center rounded-lg p-3 min-w-[800%] lg:min-w-[300%] -right-0 top-": "hidden"}>
+                                    <Link className="hover:scale-105">User Page</Link>
+                                    <button className="hover:scale-105 text-red cursor-pointer" onClick={() => dispatch(logoutUser())} >Log Out</button>
+                                </div>
+                            </div>:
+                            <> <Link to={'/login'}>Profile</Link></>
+                        }
+                    </div>
                 </nav>
             </div>
         </div>

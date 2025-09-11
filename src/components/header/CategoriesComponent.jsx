@@ -8,6 +8,7 @@ import { currentCategoryAction, saveAllCategoriesAction, toggleCategoryAction } 
 const CategoriesComponent = () => {
 
     const { allCategories, categoryToggle, categoryLoad, currentCategory } = useSelector(state => state.categoriesStore);
+    const {searchProducts} = useSelector(state => state.productsStore)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,6 +23,7 @@ const CategoriesComponent = () => {
     }
 
     return (
+        !searchProducts &&
         <div className=" bg-midBlue text-lightBlue">
             <div className="wrapper mx-auto py-3 flex flex-wrap items-start justify-center lg:justify-between" >
                 <div className="flex flex-col gap-2.5" >

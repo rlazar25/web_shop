@@ -18,6 +18,12 @@
     .flex-centar-between{
         @apply flex flex-row items-center justify-between;
     }
+    .inputWrap{
+        @apply flex flex-col
+    }
+    .inputFeeld{
+        @apply bg-lightBlue py-2 px-2.5 rounded-lg
+    }
 }
 
 @layer components{
@@ -26,6 +32,9 @@
     }
     .btnCategory{
         @apply w-[150px] text-center text-darkBlue hover:text-lightBlue hover:bg-darkBlue py-1 cursor-pointer border-darkBlue border-[2px] rounded-lg duration-200
+    }
+    .formBox{
+        @apply bg-midBlue flex flex-col gap-2.5 rounded-lg mx-auto py-7 px-4 lg:max-w-1/2
     }
 }
 
