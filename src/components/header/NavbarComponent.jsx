@@ -16,13 +16,20 @@ const NavbarComponent = () => {
 
     const { cartCounter } = useSelector(state => state.cartStore)
     const { favoriteCounter } = useSelector(state => state.favoriteStore)
-    const { isLogged, firstName } = useSelector(state => state.userStore)
+    const { isLogged, user } = useSelector(state => state.userStore)
     const [userMenu, setUserMenu] = useState(false)
 
     const dispatch = useDispatch()
 
+    // show user menu
     const handleUser = () => {
         setUserMenu(!userMenu)
+    }
+
+    // logout
+    const handleLogout = () => {
+        dispatch(logoutUser())
+        setUserMenu(false)
     }
 
     return (
@@ -45,15 +52,18 @@ const NavbarComponent = () => {
 
                 {/* navigation */}
                 <nav className="flex-centar-between gap-8">
+                    {/* cart */}
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
+                    {/* favorite */}
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{favoriteCounter}</span></div>
+                    {/* profile */}
                     <div className="flex-centar-between gap-1">< IoPersonSharp size={20} />
                         {isLogged ?
                             <div className="relative">
-                                <p onClick={handleUser} className="cursor-pointer">{firstName}</p> 
+                                <p onClick={handleUser} className="cursor-pointer">{user.firstName}</p> 
                                 <div className={userMenu ? "bg-midBlue cardShadow absolute text-darkBlue flex flex-col items-center rounded-lg p-3 min-w-[800%] lg:min-w-[300%] -right-0 top-": "hidden"}>
-                                    <Link className="hover:scale-105">User Page</Link>
-                                    <button className="hover:scale-105 text-red cursor-pointer" onClick={() => dispatch(logoutUser())} >Log Out</button>
+                                    <Link onClick={() => setUserMenu(false)} className="hover:scale-105">User Page</Link>
+                                    <button className="hover:scale-105 text-red cursor-pointer" onClick={handleLogout} >Log Out</button>
                                 </div>
                             </div>:
                             <> <Link to={'/login'}>Profile</Link></>
