@@ -11,8 +11,8 @@ const LoginFormComponent = () => {
 
     const { user } = useSelector(state => state.userStore)
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
+    
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -20,7 +20,8 @@ const LoginFormComponent = () => {
         },
         validationSchema: Yup.object({
             email: Yup.string()
-                .required("Required"),
+                .required("Required")
+                .email(),
             password: Yup.string()
                 .required("Required")
         }),

@@ -51,7 +51,7 @@ const NavbarComponent = () => {
                 </div>
 
                 {/* navigation */}
-                <nav className="flex-centar-between gap-8">
+                <nav className="flex-centar-between gap-8 relative">
                     {/* cart */}
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
                     {/* favorite */}
@@ -59,9 +59,9 @@ const NavbarComponent = () => {
                     {/* profile */}
                     <div className="flex-centar-between gap-1">< IoPersonSharp size={20} />
                         {isLogged ?
-                            <div className="relative">
+                            <div className="">
                                 <p onClick={handleUser} className="cursor-pointer">{user.firstName}</p> 
-                                <div className={userMenu ? "bg-midBlue cardShadow absolute text-darkBlue flex flex-col items-center rounded-lg p-3 min-w-[800%] lg:min-w-[300%] -right-0 top-": "hidden"}>
+                                <div className={userMenu ? "bg-midBlue cardShadow absolute text-darkBlue flex flex-col items-center rounded-lg p-3 min-w-[280px] lg:min-w-[150px] left-0 right-0 ": "hidden"}>
                                     <Link onClick={() => setUserMenu(false)} className="hover:scale-105">User Page</Link>
                                     <button className="hover:scale-105 text-red cursor-pointer" onClick={handleLogout} >Log Out</button>
                                 </div>
