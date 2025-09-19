@@ -13,7 +13,7 @@
 
 @layer utilities {
     .wrapper{
-        @apply container mx-auto max-w-[1200px];
+        @apply container px-4 lg:px-0 mx-auto max-w-[1200px];
     }
     .flex-centar-between{
         @apply flex flex-row items-center justify-between;

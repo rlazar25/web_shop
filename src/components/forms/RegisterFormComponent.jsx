@@ -31,6 +31,7 @@ const RegisterFormComponent = () => {
                 .required("Required"),
             password: Yup.string()
                 .required("Required")
+                .min(4, "Minimum 4 characters")
         }),
         // submit
         onSubmit: (values) => {
@@ -40,12 +41,15 @@ const RegisterFormComponent = () => {
         }
     })
 
+    const showError = (name) => formik.errors[name] && formik.touched[name] && formik.errors[name]
+
+
     return (
         <form className="formBox" onSubmit={formik.handleSubmit} >
             {/* inputs */}
             {/* First name */}
             <div className="inputWrap">
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="firstName">First Name <span className="text-red texi-sm">{showError("firstName")}</span> </label>
                 <input
                     className="inputFeeld"
                     type="text"
@@ -58,7 +62,7 @@ const RegisterFormComponent = () => {
             </div>
             {/* Last name */}
             <div className="inputWrap">
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="lastName">Last Name <span className="text-red texi-sm">{showError("lastName")}</span> </label>
                 <input
                     className="inputFeeld"
                     type="text"
@@ -71,7 +75,7 @@ const RegisterFormComponent = () => {
             </div>
             {/* Email */}
             <div className="inputWrap">
-                <label htmlFor="email"> Email</label>
+                <label htmlFor="email"> Email <span className="text-red texi-sm">{showError("email")}</span> </label>
                 <input
                     className="inputFeeld"
                     type="email"
@@ -84,7 +88,7 @@ const RegisterFormComponent = () => {
             </div>
             {/* Password */}
             <div className="inputWrap">
-                <label htmlFor=""> Password</label>
+                <label htmlFor=""> Password <span className="text-red texi-sm">{showError("password")}</span> </label>
                 <input
                     className="inputFeeld"
                     type="password"

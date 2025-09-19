@@ -18,7 +18,7 @@ const FavoritePage = () => {
                     return <ProductComponent key={product.id} product={product} />
                 })}</div> :
                 // if favorite is empty
-                <div className=" flex flex-col justify-center items-center py-[50px]">
+                <div className=" flex flex-col justify-center items-center text-center py-[50px]">
                     <h2 className="text-4xl text-red">Still don't have any favorite product</h2>
                      <p className="mb-4">Please add a product</p>
                     <Link to="/" className="text-darkBlue underline text-lg ">Continue shopping</Link>

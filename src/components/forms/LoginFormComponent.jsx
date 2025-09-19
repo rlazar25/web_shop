@@ -24,6 +24,7 @@ const LoginFormComponent = () => {
                 .email(),
             password: Yup.string()
                 .required("Required")
+                .min(4, "Minimum 4 character")
         }),
         onSubmit: (values, {setStatus} ) => {
             if (values.email === user.email && values.password === user.password) {
