@@ -34,6 +34,13 @@ const userSlice = createSlice({
       state.user = action.payload
       state.isLogged = true
     },
+    // remove user
+    removeUser: (state) => {
+      localStorage.removeItem("user")
+      state.isLogged = false
+      state.showForms = false
+      state.user = {}
+    },
     // switch forms
     handleShowForms: (state) => {
       state.showForms = !state.showForms
@@ -41,5 +48,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginUser, logoutUser, registerUser, handleShowForms, restoreUser } = userSlice.actions;
+export const { loginUser, logoutUser, registerUser, handleShowForms, removeUser, restoreUser } = userSlice.actions;
 export default userSlice.reducer;

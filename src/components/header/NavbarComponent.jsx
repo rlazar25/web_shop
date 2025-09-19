@@ -62,7 +62,7 @@ const NavbarComponent = () => {
                             <div className="">
                                 <p onClick={handleUser} className="cursor-pointer">{user.firstName}</p> 
                                 <div className={userMenu ? "bg-midBlue cardShadow absolute text-darkBlue flex flex-col items-center rounded-lg p-3 min-w-[280px] lg:min-w-[150px] left-0 right-0 ": "hidden"}>
-                                    <Link onClick={() => setUserMenu(false)} className="hover:scale-105">User Page</Link>
+                                    <Link to={'/userPage'} onClick={() => setUserMenu(false)} className="hover:scale-105">User Page</Link>
                                     <button className="hover:scale-105 text-red cursor-pointer" onClick={handleLogout} >Log Out</button>
                                 </div>
                             </div>:

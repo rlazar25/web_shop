@@ -14,6 +14,7 @@ import SingleProductPage from './pages/SingleProductPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import FavoritePage from './pages/FavoritePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import UserPage from './pages/UserPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />
+      },
+      {
+        path: '/userPage',
+        element: <UserPage />
       }
     ]
   }
