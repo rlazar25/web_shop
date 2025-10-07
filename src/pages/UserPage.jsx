@@ -1,4 +1,3 @@
-import { useState } from 'react'
 // redux and slices
 import { useDispatch, useSelector } from 'react-redux'
 import { handleShowEdit, removeUser } from '../store/userSlice'
@@ -7,10 +6,11 @@ import { useNavigate } from 'react-router'
 import EditFormComponent from '../components/forms/EditFormComponent'
 // react icons
 import { LiaUserEditSolid } from "react-icons/lia";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 const UserPage = () => {
 
-    const { user, userEditMenu } = useSelector(state => state.userStore)
+    const { user, userEditMenu, isLogged } = useSelector(state => state.userStore)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -27,10 +27,16 @@ const UserPage = () => {
                 <p className='font-bold'>Email: <span className='font-semibold'>{user.email}</span></p>
                 <p className='font-bold'>Gender: {user.gender ? <span className={user.gender === "male" ? "text-green font-semibold" : "text-red font-semibold"}>{user.gender}</span> : "Not specified"} </p>
                 <p className='font-bold'>Date of Birth: {user.birthDate ? <span className='font-semibold'>{user.birthDate}</span> : "Not specified"}</p>
-                <button onClick={() => dispatch(handleShowEdit())} className='flex items-center cursor-pointer gap-2 font-semibold underline mt-4 mx-auto'>Edit User <LiaUserEditSolid size={20} /></button>
+                <button onClick={() => dispatch(handleShowEdit())} className='flex items-end cursor-pointer gap-2 font-semibold underline mt-4 mx-auto'> {!isLogged ? "login to edit user" : "Edit user"} <LiaUserEditSolid size={20} /></button>
+                <div
+                    className='flex justify-center'
+                    onClick={() => dispatch(handleShowEdit())}
+                >
+                    {!userEditMenu && isLogged ? <MdKeyboardArrowDown size={30} className='cursor-pointer' /> : <MdKeyboardArrowUp size={30} className='cursor-pointer' />}
+                </div>
             </div>
             {/* edit user form*/}
-            {userEditMenu &&
+            {isLogged && userEditMenu &&
                 <div className='w-full flex flex-col justify-center items-center'>
                     <EditFormComponent />
                     <button
@@ -39,7 +45,8 @@ const UserPage = () => {
                     >
                         Delete User
                     </button>
-                </div>}
+                </div>
+            }
         </div>
     )
 }

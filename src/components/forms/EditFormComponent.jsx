@@ -11,6 +11,13 @@ const EditFormComponent = () => {
 
     const { user } = useSelector(state => state.userStore)
 
+    const today = new Date()
+    const minAgeDate = new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDate()
+    );
+
     const formik = useFormik({
         // values
         initialValues: {
@@ -28,7 +35,9 @@ const EditFormComponent = () => {
                 .email(),
             password: Yup.string()
                 .required("Required")
-                .min(4, "Minimum 4 characters")
+                .min(4, "Minimum 4 characters"),
+            birthDate: Yup.date()
+            .max(minAgeDate, "You must be 18 years old")
         }),
         // submit
         onSubmit: (values) => {
@@ -96,7 +105,7 @@ const EditFormComponent = () => {
             </div>
             {/* birth date */}
             <div className="inputWrap">
-                <label htmlFor=""> Birth date </label>
+                <label htmlFor=""> Birth date <span className="text-red text-sm">{showError("birthDate")}</span> </label>
                 <input
                     className="inputFeeld"
                     type="date"
@@ -130,7 +139,7 @@ const EditFormComponent = () => {
                         value="female"
                         checked={formik.values.gender === "female"}
                         onChange={formik.handleChange}
-                    /> 
+                    />
                     <label htmlFor="female">Female</label>
                 </div>
             </div>
