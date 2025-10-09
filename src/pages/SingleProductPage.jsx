@@ -9,13 +9,15 @@ import { Rating } from "@mui/material";
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 // redux and slices
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
 import { handleFavoriteAction } from "../store/favoriteSlice";
+import { setProduct } from "../store/singleProductSlice";
+// components
+import AddCommentComponent from "../components/forms/AddCommentComponent";
 
 const SingleProductPage = () => {
 
-  const [product, setProduct] = useState({});
   const [productLoad, setProductLoad] = useState(false);
   const [currentImage, setCurrentImage] = useState(0)
   const { id } = useParams();
@@ -23,11 +25,12 @@ const SingleProductPage = () => {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const dispatch = useDispatch();
+  const {product} = useSelector(state => state.singleProductStore)
 
   useEffect(() => {
     productsServices.getSingleProductService(id)
       .then(res => {
-        setProduct(res.data)
+        dispatch(setProduct(res.data))
         setProductLoad(true)
       })
       .catch(err => console.log(err))
@@ -35,7 +38,7 @@ const SingleProductPage = () => {
 
 
   const handleFavorite = (product) => {
-    dispatch(handleFavoriteAction(product))
+    dispatch(handleFavoriteAction(product))    
     setIsFavorite(!isFavorite)
   }
 
@@ -95,7 +98,13 @@ const SingleProductPage = () => {
           </div>
         </div>
       </div>
-      {/* comments */}
+      {/* Review */}
+      {/* add review */}
+      <div className="my-4">
+        <h2 className="text-xl text-center font-semibold my-4">Add Review</h2>
+        <AddCommentComponent />
+      </div>
+      {/* dummy reviews */}
       <div>
         <h2 className="text-xl text-center font-semibold">Reviewers:</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
