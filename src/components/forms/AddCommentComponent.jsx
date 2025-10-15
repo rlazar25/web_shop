@@ -3,11 +3,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 // material ui
 import { Rating, Box } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addReviewAction } from "../../store/singleProductSlice";
 
 const AddCommentComponent = () => {
 
+    const {isLogged} = useSelector(state => state.userStore)
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -29,9 +30,13 @@ const AddCommentComponent = () => {
                 .min(1, "Select rating")
                 .required("Required"),
         }),
-        onSubmit: (values) => {
-            dispatch(addReviewAction(values))
-            formik.resetForm()
+        onSubmit: (values, {setStatus}) => {
+            if(isLogged) {
+                dispatch(addReviewAction(values))
+                formik.resetForm()
+            } else {
+                setStatus("You must log in!")
+            }
         },
     });
 
@@ -80,7 +85,7 @@ const AddCommentComponent = () => {
 
             <div className="inputWrap">
                 <label htmlFor="rating">Rating {formik.touched.rating && formik.errors.rating && (
-                    <span className="text-red-500 text-sm">{formik.errors.rating}</span>
+                    <span className="text-red text-sm">{formik.errors.rating}</span>
                 )}</label>
                 <Box>
                     <Rating
@@ -94,6 +99,7 @@ const AddCommentComponent = () => {
             <button type="submit" className="btn text-lightBlue">
                 Add Comment
             </button>
+            <p className="text-red text-center">{formik.status}</p>
         </form>
     );
 };
