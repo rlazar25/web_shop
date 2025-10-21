@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { restoreUser } from './store/userSlice'
 import { restoreFavoriteAction } from './store/favoriteSlice'
+import { restoreCartAction } from './store/cartSlice'
 
 // base URL
 axios.defaults.baseURL = "https://dummyjson.com"
@@ -17,16 +18,21 @@ axios.defaults.baseURL = "https://dummyjson.com"
 const App = () => {
 
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
     if (localStorage.hasOwnProperty('user')) {
       let USER = JSON.parse(localStorage.getItem('user'));
       dispatch(restoreUser(USER))
     }
-    
-    if(localStorage.hasOwnProperty('favoriteItems')){
+
+    if (localStorage.hasOwnProperty('favoriteItems')) {
       let FAVORITE = JSON.parse(localStorage.getItem('favoriteItems'))
       dispatch(restoreFavoriteAction(FAVORITE))
+    }
+
+    if (localStorage.hasOwnProperty('cart')) {
+      let CART = JSON.parse(localStorage.getItem('cart'))
+      dispatch(restoreCartAction(CART))
     }
   }, [])
 

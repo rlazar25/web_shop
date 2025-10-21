@@ -4,8 +4,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartProducts: [],
-    cartCounter: 0,
-    totalPrice: 0
+    totalPrice: 0,
   },
   reducers: {
     addToCartAction: (state, action) => {
@@ -23,15 +22,17 @@ const cartSlice = createSlice({
       // if product doesn't exist, add it. Otherwise increase its count
       if (findIndex === null) {
         copyCart.push({
-          ...action.payload, quantity: 1, productPriceTotal: action.payload.price,
+          ...action.payload,
+          quantity: 1,
+          productPriceTotal: action.payload.price,
         });
-        state.cartCounter++;
-        state.totalPrice += action.payload.price
+        state.totalPrice += action.payload.price;
       } else {
         copyCart[findIndex].quantity++;
-        state.totalPrice += action.payload.price
+        state.totalPrice += action.payload.price;
       }
 
+      localStorage.setItem("cart", JSON.stringify(copyCart));
       state.cartProducts = copyCart;
     },
 
@@ -47,52 +48,63 @@ const cartSlice = createSlice({
         }
       });
 
-    // product remove and decrease cartCounter
+      // product remove and decrease cartCounter
       copyCart.splice(findIndex, 1);
-      state.cartCounter--;
-      state.totalPrice -= action.payload.productPriceTotal * action.payload.quantity
+      state.totalPrice -=
+        action.payload.productPriceTotal * action.payload.quantity;
 
+      localStorage.setItem("cart", JSON.stringify(copyCart));
       state.cartProducts = copyCart;
     },
     decreaseQuantityAction: (state, action) => {
       let copyCart = [...state.cartProducts];
       let findIndex = null;
 
-      copyCart.find((product,index) => {
-        if(product.id === action.payload.id){
+      copyCart.find((product, index) => {
+        if (product.id === action.payload.id) {
           findIndex = index;
           return;
         }
       });
       // decrease quantity and price
-      if(copyCart[findIndex].quantity > 1){
+      if (copyCart[findIndex].quantity > 1) {
         copyCart[findIndex].quantity--;
-        state.totalPrice -= action.payload.price
+        state.totalPrice -= action.payload.price;
       }
     },
     increaseQuantityAction: (state, action) => {
       let copyCart = [...state.cartProducts];
       let findIndex = null;
 
-      copyCart.find((product,index) => {
-        if(product.id === action.payload.id){
+      copyCart.find((product, index) => {
+        if (product.id === action.payload.id) {
           findIndex = index;
           return;
         }
       });
       // increase quantity and price
-      if(copyCart[findIndex].quantity < copyCart[findIndex].stock){
+      if (copyCart[findIndex].quantity < copyCart[findIndex].stock) {
         copyCart[findIndex].quantity++;
-        state.totalPrice += action.payload.price
+        state.totalPrice += action.payload.price;
       }
     },
     clearCartAction: (state) => {
       state.cartProducts = [];
-      state.cartCounter = 0;
-      state.totalPrice = 0
-    }
+      state.totalPrice = 0;
+      localStorage.removeItem("cart");
+    },
+    restoreCartAction: (state, action) => {
+      state.cartProducts = action.payload;
+    },
   },
 });
 
-export const { addToCartAction, removeProductAction, decreaseQuantityAction, increaseQuantityAction, clearCartAction } = cartSlice.actions;
+export const {
+  addToCartAction,
+  removeProductAction,
+  decreaseQuantityAction,
+  increaseQuantityAction,
+  clearCartAction,
+  restoreCartAction,
+} = cartSlice.actions;
 export default cartSlice.reducer;

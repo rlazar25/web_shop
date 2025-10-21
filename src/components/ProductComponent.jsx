@@ -1,4 +1,3 @@
-import { useState } from "react";
 // material UI
 import { Rating } from "@mui/material"
 // icons
@@ -11,15 +10,26 @@ import { addToCartAction } from "../store/cartSlice";
 import { handleFavoriteAction } from "../store/favoriteSlice";
 
 const ProductComponent = ({ product }) => {
+    const dispatch = useDispatch();
 
+    // add/remove favorite
     const { favoriteProducts } = useSelector(state => state.favoriteStore)
     const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
 
-    const dispatch = useDispatch();
-
     const handleFavorite = () => {
         dispatch(handleFavoriteAction(product))
-        setIsFavorite(!isFavorite)
+    }
+
+    // add to cart
+    const { cartProducts } = useSelector(state => state.cartStore)
+    const cartItem = cartProducts.find(prod => prod.id === product.id)
+
+    const handleCart = (product) => {
+        if (cartItem && cartItem.quantity < product.stock) {
+            dispatch(addToCartAction(product))
+        } else if (!cartItem) {
+            dispatch(addToCartAction(product))
+        }
     }
 
     return (
@@ -51,7 +61,7 @@ const ProductComponent = ({ product }) => {
                 <div className="flex justify-between mt-2 gap-3">
                     <Link to={`/singleProduct/${product.id}`} className="duration-300 text-center w-full cursor-pointer border-[2px] border-darkBlue py-2 px-5 rounded-lg hover:bg-darkBlue hover:text-lightBlue ">View More</Link>
                     <div className="translate duration-300 cursor-pointer border-[2px] border-orange py-2 px-3 rounded-lg hover:bg-orange hover:text-lightBlue flex items-center justify-center">
-                        <FaShoppingCart onClick={() => dispatch(addToCartAction(product))} size={20} />
+                        <FaShoppingCart onClick={() => handleCart(product)} size={20} />
                     </div>
                 </div>
             </div>

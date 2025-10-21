@@ -14,7 +14,7 @@ import { logoutUser } from "../../store/userSlice";
 
 const NavbarComponent = () => {
 
-    const { cartCounter } = useSelector(state => state.cartStore)
+    const { cartProducts } = useSelector(state => state.cartStore)
     const { favoriteCounter } = useSelector(state => state.favoriteStore)
     const { isLogged, user } = useSelector(state => state.userStore)
     const [userMenu, setUserMenu] = useState(false)
@@ -53,7 +53,7 @@ const NavbarComponent = () => {
                 {/* navigation */}
                 <nav className="flex-centar-between gap-8 relative">
                     {/* cart */}
-                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartCounter}</span></div>
+                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartProducts.length}</span></div>
                     {/* favorite */}
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{favoriteCounter}</span></div>
                     {/* profile */}

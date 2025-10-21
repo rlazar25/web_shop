@@ -24,8 +24,13 @@ const SingleProductPage = () => {
   const [currentImage, setCurrentImage] = useState(0)
   const { id } = useParams();
 
+  // favorite
   const { favoriteProducts } = useSelector(state => state.favoriteStore)
   const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
+
+  // cart
+  const { cartProducts } = useSelector(state => state.cartStore)
+  const cartItem = cartProducts.find(prod => prod.id === product.id)
 
   const dispatch = useDispatch();
 
@@ -39,14 +44,34 @@ const SingleProductPage = () => {
   }, [])
 
 
+  // add/remove favorite
   const handleFavorite = (product) => {
     dispatch(handleFavoriteAction(product))
-    setIsFavorite(!isFavorite)
+  }
+
+  // add to cart
+  const handleCart = (product) => {
+    if (cartItem && cartItem.quantity < product.stock) {
+      dispatch(addToCartAction(product))
+    } else if (!cartItem) {
+      dispatch(addToCartAction(product))
+    }
+  }
+
+  // availability
+  const getAvailabilityText = () => {
+    if (product.stock > 0) {
+      return cartItem && cartItem.quantity >= product.stock
+        ? <span className="text-red">Out of Stock</span>
+        : <span className="text-green">In Stock</span>;
+    }
+    return <span className="text-red">Out of Stock</span>;
   }
 
   return (
     productLoad ? <div className="wrapper px-4 lg:px-0">
       <div className="flex flex-col items-center lg:flex-row py-6">
+      
         {/* left side */}
         <div className="lg:w-[50%] flex flex-col items-center">
           <img src={product.images[currentImage]} alt={product.title} className="w-[400px]" />
@@ -64,12 +89,11 @@ const SingleProductPage = () => {
             <h1 className="text-4xl font-semibold">{product.title}</h1>
             <p className="text-2xl">${product.price}</p>
             <Rating value={product.rating} readOnly />
-            <p>Availability: {product.availabilityStatus === "In Stock" ?
-              <span className="text-green font-semibold">{product.availabilityStatus}</span> :
-              <span className="text-red font-semibold">{product.availabilityStatus}</span>}
+            <p>Availability: {getAvailabilityText()}
             </p>
-            <p>Hurry up! only <span className="font-semibold">{product.stock}</span> product left in stock!</p>
+            <p>Hurry up! only <span className="font-semibold">{cartItem ? product.stock - cartItem.quantity : product.stock}</span> product left in stock!</p>
             <p>{product.description}</p>
+
             {/* tags */}
             <div className="flex gap-2.5">
               {product.tags.map((tag, index) => {
@@ -77,13 +101,15 @@ const SingleProductPage = () => {
               })}
             </div>
           </div>
+
           {/* total price and buttons */}
           <div className="py-6 flex flex-col  border-b-[2px]">
-            <p>Quantity: { }</p>
-            <p>Total Price: $ { }</p>
+            <p>Quantity: <span className="font-semibold">{cartItem ? cartItem.quantity : 0}</span></p>
+            <p>Total Price: <span className="font-semibold">${cartItem ? (cartItem.productPriceTotal * cartItem.quantity).toFixed(2) : 0}</span></p>
+          
             {/* interaction buttons */}
             <div className="flex gap-6 items-center mt-3 " >
-              <button onClick={() => dispatch(addToCartAction(product))} className="btn text-lightBlue hover:text-darkBlue flex  items-center gap-2">Add To Cart <FaShoppingCart /></button>
+              <button onClick={() => handleCart(product)} className="btn text-lightBlue hover:text-darkBlue flex  items-center gap-2">Add To Cart <FaShoppingCart /></button>
               <div className="cursor-pointer" onClick={() => handleFavorite(product)}>
                 {favoriteItem ?
                   <FaHeart size={30} /> :
@@ -92,6 +118,7 @@ const SingleProductPage = () => {
               </div>
             </div>
           </div>
+          
           {/* policy, warranty,shipping */}
           <div className="py-6 text-[14px]">
             <p>Shipping Information: {product.shippingInformation}</p>
@@ -100,12 +127,8 @@ const SingleProductPage = () => {
           </div>
         </div>
       </div>
+      
       {/* Review */}
-      {/* add review */}
-      <div className="my-4">
-        <h2 className="text-xl text-center font-semibold my-4">Add Review</h2>
-        <AddCommentComponent />
-      </div>
       {/* dummy reviews */}
       <div>
         <h2 className="text-xl text-center font-semibold">Reviewers:</h2>
@@ -128,6 +151,11 @@ const SingleProductPage = () => {
             </div>
           })}
         </div>
+      </div>
+      {/* add review */}
+      <div className="my-4">
+        <h2 className="text-xl text-center font-semibold my-4">Add Review</h2>
+        <AddCommentComponent />
       </div>
     </div> : <>Loading...</>
   )

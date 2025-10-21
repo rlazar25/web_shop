@@ -26,7 +26,7 @@ const FavoritePage = () => {
                             <p className="mb-4">Please add a product</p>
                             <Link to="/" className="text-darkBlue underline text-lg ">Continue shopping</Link>
                         </div>) :
-                    <div className="flex flex-col justify-center items-center text-center py-[50px]">
+                    <div className="wrapper flex flex-col justify-center items-center text-center py-[50px]">
                         <h2 className="text-4xl text-red">You must log in to view your favorite products</h2>
                         <p className="mb-4">Please log in first</p>
                         <Link to="/login" className="text-darkBlue underline text-lg">Go to Login</Link>
