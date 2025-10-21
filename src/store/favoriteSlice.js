@@ -19,18 +19,24 @@ const favoriteSlice = createSlice({
       });
 
       if (findIndex === null) {
-        copyFavorite.push({...action.payload})
-        state.favoriteCounter++;        
-        state.isFavorite = !state.isFavorite
-    } else{
-        copyFavorite.splice(findIndex, 1)
+        copyFavorite.push({ ...action.payload });
+        state.favoriteCounter++;
+        state.isFavorite = !state.isFavorite;
+      } else {
+        copyFavorite.splice(findIndex, 1);
         state.favoriteCounter--;
       }
 
-      state.favoriteProducts = copyFavorite
+      state.favoriteProducts = copyFavorite;
+      localStorage.setItem("favoriteItems", JSON.stringify(copyFavorite));
+    },
+    restoreFavoriteAction: (state, action) => {
+      state.favoriteProducts = action.payload ? action.payload : [];
+      state.favoriteCounter = state.favoriteProducts.length;
     },
   },
 });
 
-export const { handleFavoriteAction } = favoriteSlice.actions;
+export const { handleFavoriteAction, restoreFavoriteAction } =
+  favoriteSlice.actions;
 export default favoriteSlice.reducer;

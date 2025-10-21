@@ -6,13 +6,15 @@ import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 // router
 import { Link } from "react-router";
 // redux and slices
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
 import { handleFavoriteAction } from "../store/favoriteSlice";
 
 const ProductComponent = ({ product }) => {
 
-    const [isFavorite, setIsFavorite] = useState(false)
+    const { favoriteProducts } = useSelector(state => state.favoriteStore)
+    const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
+
     const dispatch = useDispatch();
 
     const handleFavorite = () => {
@@ -24,7 +26,7 @@ const ProductComponent = ({ product }) => {
         <div className="flex flex-col justify-between cardShadow rounded-lg p-4 ">
             {/* favorite button */}
             <div className="self-end cursor-pointer absolute" onClick={() => handleFavorite(product)}>
-                {isFavorite ?
+                {favoriteItem ?
                     <FaHeart size={20} /> :
                     <FaRegHeart size={20} />
                 }

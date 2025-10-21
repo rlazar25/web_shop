@@ -18,14 +18,16 @@ import AddCommentComponent from "../components/forms/AddCommentComponent";
 
 const SingleProductPage = () => {
 
+  const { product } = useSelector(state => state.singleProductStore)
+
   const [productLoad, setProductLoad] = useState(false);
   const [currentImage, setCurrentImage] = useState(0)
   const { id } = useParams();
 
-  const [isFavorite, setIsFavorite] = useState(false)
+  const { favoriteProducts } = useSelector(state => state.favoriteStore)
+  const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
 
   const dispatch = useDispatch();
-  const {product} = useSelector(state => state.singleProductStore)
 
   useEffect(() => {
     productsServices.getSingleProductService(id)
@@ -38,7 +40,7 @@ const SingleProductPage = () => {
 
 
   const handleFavorite = (product) => {
-    dispatch(handleFavoriteAction(product))    
+    dispatch(handleFavoriteAction(product))
     setIsFavorite(!isFavorite)
   }
 
@@ -83,7 +85,7 @@ const SingleProductPage = () => {
             <div className="flex gap-6 items-center mt-3 " >
               <button onClick={() => dispatch(addToCartAction(product))} className="btn text-lightBlue hover:text-darkBlue flex  items-center gap-2">Add To Cart <FaShoppingCart /></button>
               <div className="cursor-pointer" onClick={() => handleFavorite(product)}>
-                {isFavorite ?
+                {favoriteItem ?
                   <FaHeart size={30} /> :
                   <FaRegHeart size={30} className="cursor-pointer" />
                 }
