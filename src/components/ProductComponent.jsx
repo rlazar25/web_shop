@@ -27,17 +27,21 @@ const ProductComponent = ({ product }) => {
             {/* favorite button */}
             <div className="self-end cursor-pointer absolute" onClick={() => handleFavorite(product)}>
                 {favoriteItem ?
-                    <FaHeart size={20} /> :
-                    <FaRegHeart size={20} />
+                    <FaHeart size={25} /> :
+                    <FaRegHeart size={25} />
                 }
             </div>
 
             {/* product img */}
-            <img className="w-[70%] mx-auto " src={product.thumbnail} alt={product.title} />
+            <Link to={`/singleProduct/${product.id}`} >
+                <img className="w-[70%] mx-auto " src={product.thumbnail} alt={product.title} />
+            </Link>
 
             {/* product info */}
             <div className="border-t-[2px] font-semibold">
-                <h2 className="truncate" title={product.title}>{product.title}</h2>
+                <Link to={`/singleProduct/${product.id}`}>
+                    <h2 className="truncate" title={product.title}>{product.title}</h2>
+                </Link>
                 <div className="flex justify-between items-center">
                     <p>${product.price}</p>
                     <Rating value={product.rating} size="small" readOnly />
