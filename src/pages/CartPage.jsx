@@ -9,6 +9,8 @@ import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, remove
 import { useRef, useState } from "react";
 // custome hook
 import useTopLoad from "../hooks/useTopLoad";
+import { showToast } from "../utils/toastifyHelper";
+import { toastifyMessages } from "../utils/toastifyMessages";
 
 
 const CartPage = () => {
@@ -26,6 +28,16 @@ const CartPage = () => {
 
     // load page at top
     useTopLoad()
+
+    const handleRemoveProduct = (product) => {
+        dispatch(removeProductAction(product));
+        showToast.error(toastifyMessages.cart.removed)
+    }
+
+    const cartClear = () => {
+        dispatch(clearCartAction());
+        showToast.error(toastifyMessages.cart.clear)
+    }
 
     return (
         <div className="wrapper py-[40px]">
@@ -64,7 +76,7 @@ const CartPage = () => {
                                             <TableCell align="center">${(product.productPriceTotal * product.quantity).toFixed(2)}</TableCell>
                                             <TableCell align="center">
                                                 <button
-                                                    onClick={() => dispatch(removeProductAction(product))}
+                                                    onClick={() => handleRemoveProduct(product)}
                                                     className="btn bg-red text-lightBlue border-red hover:bg-transparent hover:text-red"
                                                 >Remove</button>
                                             </TableCell>
@@ -75,7 +87,7 @@ const CartPage = () => {
                         </TableContainer>
                         <div className="flex items-center justify-between lg:justify-start my-5 gap-4">
                             <Link to="/" className="btn bg-orange border-orange text-lightBlue hover:bg-transparent hover:text-orange">Continue shopping</Link>
-                            <button onClick={() => dispatch(clearCartAction())} className="btn bg-red border-red text-lightBlue hover:bg-transparent hover:text-red">Clear Cart</button>
+                            <button onClick={() => cartClear()} className="btn bg-red border-red text-lightBlue hover:bg-transparent hover:text-red">Clear Cart</button>
                         </div>
                     </div>
                     {/* Total price */}

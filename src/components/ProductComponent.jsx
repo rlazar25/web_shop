@@ -39,10 +39,14 @@ const ProductComponent = ({ product }) => {
     const cartItem = cartProducts.find(prod => prod.id === product.id)
 
     const handleCart = (product) => {
-        if (cartItem && cartItem.quantity < product.stock) {
+        if (!cartItem) {
             dispatch(addToCartAction(product))
-        } else if (!cartItem) {
+            showToast.success(toastifyMessages.cart.added)
+        } else if (cartItem && cartItem.quantity < product.stock) {
+            showToast.success(toastifyMessages.cart.added)
             dispatch(addToCartAction(product))
+        } else {
+            showToast.warn(toastifyMessages.cart.stock)
         }
     }
 
