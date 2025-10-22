@@ -34,9 +34,13 @@ const favoriteSlice = createSlice({
       state.favoriteProducts = action.payload ? action.payload : [];
       state.favoriteCounter = state.favoriteProducts.length;
     },
+    clearFavoriteProductsAction: (state) => {
+      state.favoriteProducts = []
+      state.favoriteCounter = 0
+    },
   },
 });
 
-export const { handleFavoriteAction, restoreFavoriteAction } =
+export const { handleFavoriteAction, restoreFavoriteAction, clearFavoriteProductsAction } =
   favoriteSlice.actions;
 export default favoriteSlice.reducer;

@@ -7,6 +7,7 @@ import EditFormComponent from '../components/forms/EditFormComponent'
 // react icons
 import { LiaUserEditSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { clearFavoriteProductsAction } from '../store/favoriteSlice';
 
 const UserPage = () => {
 
@@ -17,6 +18,7 @@ const UserPage = () => {
     // remove user
     const handleRemoveUser = () => {
         dispatch(removeUser());
+        dispatch(clearFavoriteProductsAction())
         navigate('/')
     }
     return (

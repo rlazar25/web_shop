@@ -17,24 +17,29 @@ const userSlice = createSlice({
     // login
     loginUser: (state) => {
       state.isLogged = true;
+      localStorage.setItem("isLogged", "true");
     },
     // logout
     logoutUser: (state) => {
       state.isLogged = false;
       state.userEditMenu = false;
+      localStorage.setItem("isLogged", "false");
     },
     // register
     registerUser: (state, action) => {
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload));
-
+      localStorage.setItem("isLogged", "true");
       state.isLogged = true;
       state.showForms = true;
     },
     // restore user from localSorage
     restoreUser: (state, action) => {
-      state.user = action.payload;
-      state.isLogged = true;
+      const isLogged = localStorage.getItem("isLogged");
+      if (action.payload && isLogged === "true") {
+        state.user = action.payload;
+        state.isLogged = true;
+      }
     },
     // remove user
     removeUser: (state) => {
