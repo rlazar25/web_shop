@@ -12,12 +12,16 @@ import { handleFavoriteAction } from "../store/favoriteSlice";
 const ProductComponent = ({ product }) => {
     const dispatch = useDispatch();
 
+    const { isLogged } = useSelector(state => state.userStore)
+
     // add/remove favorite
     const { favoriteProducts } = useSelector(state => state.favoriteStore)
     const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
 
     const handleFavorite = () => {
-        dispatch(handleFavoriteAction(product))
+        if (isLogged) {
+            dispatch(handleFavoriteAction(product))
+        }
     }
 
     // add to cart

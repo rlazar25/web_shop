@@ -19,6 +19,7 @@ import AddCommentComponent from "../components/forms/AddCommentComponent";
 const SingleProductPage = () => {
 
   const { product } = useSelector(state => state.singleProductStore)
+  const { isLogged } = useSelector(state => state.userStore)
 
   const [productLoad, setProductLoad] = useState(false);
   const [currentImage, setCurrentImage] = useState(0)
@@ -46,7 +47,9 @@ const SingleProductPage = () => {
 
   // add/remove favorite
   const handleFavorite = (product) => {
-    dispatch(handleFavoriteAction(product))
+    if (isLogged) {
+      dispatch(handleFavoriteAction(product))
+    }
   }
 
   // add to cart
@@ -71,7 +74,7 @@ const SingleProductPage = () => {
   return (
     productLoad ? <div className="wrapper px-4 lg:px-0">
       <div className="flex flex-col items-center lg:flex-row py-6">
-      
+
         {/* left side */}
         <div className="lg:w-[50%] flex flex-col items-center">
           <img src={product.images[currentImage]} alt={product.title} className="w-[400px]" />
@@ -106,7 +109,7 @@ const SingleProductPage = () => {
           <div className="py-6 flex flex-col  border-b-[2px]">
             <p>Quantity: <span className="font-semibold">{cartItem ? cartItem.quantity : 0}</span></p>
             <p>Total Price: <span className="font-semibold">${cartItem ? (cartItem.productPriceTotal * cartItem.quantity).toFixed(2) : 0}</span></p>
-          
+
             {/* interaction buttons */}
             <div className="flex gap-6 items-center mt-3 " >
               <button onClick={() => handleCart(product)} className="btn text-lightBlue hover:text-darkBlue flex  items-center gap-2">Add To Cart <FaShoppingCart /></button>
@@ -118,7 +121,7 @@ const SingleProductPage = () => {
               </div>
             </div>
           </div>
-          
+
           {/* policy, warranty,shipping */}
           <div className="py-6 text-[14px]">
             <p>Shipping Information: {product.shippingInformation}</p>
@@ -127,7 +130,7 @@ const SingleProductPage = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Review */}
       {/* dummy reviews */}
       <div>

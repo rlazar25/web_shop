@@ -24,7 +24,7 @@ const CartPage = () => {
     return (
         <div className="wrapper py-[40px]">
             {cartProducts.length > 0 ? //show cart
-                <div className="px-6 lg:px-0 lg:flex gap-5">
+                <div className="lg:flex gap-5">
                     {/* cart table */}
                     <div className="lg:w-[70%]">
                         <TableContainer className="rounded-lg" component={Paper} >

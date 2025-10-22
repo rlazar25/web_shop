@@ -55,7 +55,7 @@ const NavbarComponent = () => {
                     {/* cart */}
                     <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/cart'}>< FaShoppingCart size={20} /> Cart</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{cartProducts.length}</span></div>
                     {/* favorite */}
-                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{favoriteCounter}</span></div>
+                    <div className="flex-centar-between gap-1"><Link className="flex-centar-between gap-1" to={'/favorite'}>< FaHeart size={20} /> Favorite</Link><span className="bg-orange px-1 rounded-2xl text-darkBlue">{isLogged ? favoriteCounter : 0}</span></div>
                     {/* profile */}
                     <div className="flex-centar-between gap-1">< IoPersonSharp size={20} />
                         {isLogged ?
