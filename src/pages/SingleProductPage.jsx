@@ -15,6 +15,7 @@ import { handleFavoriteAction } from "../store/favoriteSlice";
 import { setProduct } from "../store/singleProductSlice";
 // components
 import AddCommentComponent from "../components/forms/AddCommentComponent";
+import LoaderComponent from "../components/LoaderComponent";
 
 const SingleProductPage = () => {
 
@@ -160,7 +161,7 @@ const SingleProductPage = () => {
         <h2 className="text-xl text-center font-semibold my-4">Add Review</h2>
         <AddCommentComponent />
       </div>
-    </div> : <>Loading...</>
+    </div> : <div className="flex justify-center my-20"> <LoaderComponent size={60} /></div>
   )
 }
 

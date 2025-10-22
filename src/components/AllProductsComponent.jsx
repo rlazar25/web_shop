@@ -7,6 +7,7 @@ import ProductComponent from "./ProductComponent";
 // services
 import productsServices from "../services/productsServices";
 import categoriesServices from "../services/categoriesServices";
+import LoaderComponent from "./LoaderComponent";
 
 const AllProductsComponents = () => {
 
@@ -34,13 +35,13 @@ const AllProductsComponents = () => {
   return (
     <div>
       {/* products */}
-      <div className=" wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-6 lg:px-0 py-6 gap-4">
-        {productsLoad ? allProducts.map(product => {
-          return <ProductComponent key={product.id} product={product} />
-        }) : <>Loading...</>}
-      </div>
+
+      {productsLoad ? <div className=" wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-6 lg:px-0 py-6 gap-4"> {allProducts.map(product => {
+        return <ProductComponent key={product.id} product={product} />
+      })}</div> : <div className="flex justify-center my-12"> <LoaderComponent size={60} /></div>
+      }
       {/* load more products button */}
-      {!currentCategory && <div className="flex justify-center">
+      {!currentCategory || !searchProducts && <div className="flex justify-center">
         <button onClick={() => dispatch(loadMoreAction())} className="btn text-lightBlue hover:text-darkBlue px-[30px]">Load More</button>
       </div>
       }
