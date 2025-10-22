@@ -95,6 +95,9 @@ const cartSlice = createSlice({
     },
     restoreCartAction: (state, action) => {
       state.cartProducts = action.payload;
+      state.totalPrice = action.payload.reduce((acc, product) => {
+        return acc + product.price * product.quantity;
+      }, 0);
     },
   },
 });
