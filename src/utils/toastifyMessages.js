@@ -10,4 +10,10 @@ export const toastifyMessages = {
     clear: "Cart cleared",
     stock: "Out of stock",
   },
+   user: {
+    register: "Account successfully created",
+    login: "Logged in successfully",
+    logout: "Logged out successfully",
+    delete: "Account deleted",  
+  }
 };

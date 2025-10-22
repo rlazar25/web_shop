@@ -10,6 +10,9 @@ import { IoPersonSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { handleSearchAction } from "../../store/productsSlice";
 import { logoutUser } from "../../store/userSlice";
+// toastify
+import { showToast } from "../../utils/toastifyHelper";
+import { toastifyMessages } from "../../utils/toastifyMessages";
 
 
 const NavbarComponent = () => {
@@ -30,6 +33,7 @@ const NavbarComponent = () => {
     const handleLogout = () => {
         dispatch(logoutUser())
         setUserMenu(false)
+        showToast.error(toastifyMessages.user.logout)
     }
 
     return (

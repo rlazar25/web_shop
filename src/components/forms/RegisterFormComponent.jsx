@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux"
 // formik & yup
 import { useFormik } from "formik"
 import * as Yup from "yup"
+// toastify
+import { showToast } from "../../utils/toastifyHelper"
+import { toastifyMessages } from "../../utils/toastifyMessages"
 
 const RegisterFormComponent = () => {
 
@@ -37,6 +40,7 @@ const RegisterFormComponent = () => {
         onSubmit: (values) => {
             dispatch(registerUser(values));
             navigate('/');
+            showToast.success(toastifyMessages.user.register)
             formik.resetForm();
         }
     })

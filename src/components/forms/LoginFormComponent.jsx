@@ -6,6 +6,9 @@ import { handleShowForms, loginUser } from "../../store/userSlice"
 // formik & yup
 import { useFormik } from "formik"
 import * as Yup from "yup"
+// toastify
+import { showToast } from "../../utils/toastifyHelper"
+import { toastifyMessages } from "../../utils/toastifyMessages"
 
 const LoginFormComponent = () => {
 
@@ -30,6 +33,7 @@ const LoginFormComponent = () => {
             if (values.email === user.email && values.password === user.password) {
                 dispatch(loginUser());
                 navigate('/');
+                showToast.success(toastifyMessages.user.login)
                 formik.resetForm();
             } else {
                 setStatus("Email or password is incorect");

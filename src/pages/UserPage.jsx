@@ -10,6 +10,8 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { clearFavoriteProductsAction } from '../store/favoriteSlice';
 // custome hook
 import useTopLoad from '../hooks/useTopLoad';
+import { showToast } from '../utils/toastifyHelper';
+import { toastifyMessages } from '../utils/toastifyMessages';
 
 
 const UserPage = () => {
@@ -23,6 +25,7 @@ const UserPage = () => {
         dispatch(removeUser());
         dispatch(clearFavoriteProductsAction())
         navigate('/')
+        showToast.error(toastifyMessages.user.delete)
     }
 
     // load page at top

@@ -9,6 +9,7 @@ import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, remove
 import { useRef, useState } from "react";
 // custome hook
 import useTopLoad from "../hooks/useTopLoad";
+// toastify
 import { showToast } from "../utils/toastifyHelper";
 import { toastifyMessages } from "../utils/toastifyMessages";
 
