@@ -8,6 +8,9 @@ import EditFormComponent from '../components/forms/EditFormComponent'
 import { LiaUserEditSolid } from "react-icons/lia";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { clearFavoriteProductsAction } from '../store/favoriteSlice';
+// custome hook
+import useTopLoad from '../hooks/useTopLoad';
+
 
 const UserPage = () => {
 
@@ -21,6 +24,10 @@ const UserPage = () => {
         dispatch(clearFavoriteProductsAction())
         navigate('/')
     }
+
+    // load page at top
+    useTopLoad()
+
     return (
         <div className='wrapper flex flex-col justify-center items-center gap-2 py-[50px]'>
             {/* user info */}

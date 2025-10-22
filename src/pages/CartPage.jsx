@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { clearCartAction, decreaseQuantityAction, increaseQuantityAction, removeProductAction } from "../store/cartSlice";
 // react
 import { useRef, useState } from "react";
+// custome hook
+import useTopLoad from "../hooks/useTopLoad";
+
 
 const CartPage = () => {
 
@@ -20,6 +23,9 @@ const CartPage = () => {
         setActiveCoupon(couponRef.current.value);
         couponRef.current.value = ""
     }
+
+    // load page at top
+    useTopLoad()
 
     return (
         <div className="wrapper py-[40px]">

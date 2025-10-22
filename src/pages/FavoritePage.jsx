@@ -4,11 +4,16 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router"
 // components
 import ProductComponent from "../components/ProductComponent"
+// custome hook
+import useTopLoad from "../hooks/useTopLoad"
 
 const FavoritePage = () => {
 
     const { favoriteProducts } = useSelector(state => state.favoriteStore)
     const { isLogged } = useSelector(state => state.userStore)
+
+    // load page at top
+    useTopLoad()
 
     return (
         <div className="py-[40px]">

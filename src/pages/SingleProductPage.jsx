@@ -16,6 +16,8 @@ import { setProduct } from "../store/singleProductSlice";
 // components
 import AddCommentComponent from "../components/forms/AddCommentComponent";
 import LoaderComponent from "../components/LoaderComponent";
+// custome hook
+import useTopLoad from "../hooks/useTopLoad";
 
 const SingleProductPage = () => {
 
@@ -71,6 +73,9 @@ const SingleProductPage = () => {
     }
     return <span className="text-red">Out of Stock</span>;
   }
+
+  // load page at top
+  useTopLoad()
 
   return (
     productLoad ? <div className="wrapper px-4 lg:px-0">

@@ -41,7 +41,7 @@ const AllProductsComponents = () => {
       })}</div> : <div className="flex justify-center my-12"> <LoaderComponent size={60} /></div>
       }
       {/* load more products button */}
-      {!currentCategory || !searchProducts && <div className="flex justify-center">
+      {!currentCategory && <div className="flex justify-center">
         <button onClick={() => dispatch(loadMoreAction())} className="btn text-lightBlue hover:text-darkBlue px-[30px]">Load More</button>
       </div>
       }
