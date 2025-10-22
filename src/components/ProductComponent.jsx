@@ -8,6 +8,9 @@ import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartAction } from "../store/cartSlice";
 import { handleFavoriteAction } from "../store/favoriteSlice";
+// toastify
+import { showToast } from "../utils/toastifyHelper";
+import { toastifyMessages } from "../utils/toastifyMessages";
 
 const ProductComponent = ({ product }) => {
     const dispatch = useDispatch();
@@ -18,9 +21,16 @@ const ProductComponent = ({ product }) => {
     const { favoriteProducts } = useSelector(state => state.favoriteStore)
     const favoriteItem = favoriteProducts.find(prod => prod.id === product.id)
 
-    const handleFavorite = () => {
+    const handleFavorite = (product) => {
         if (isLogged) {
-            dispatch(handleFavoriteAction(product))
+            dispatch(handleFavoriteAction(product));
+            if (favoriteItem) {
+                showToast.error(toastifyMessages.favorites.removed);
+            } else {
+                showToast.success(toastifyMessages.favorites.added);
+            }
+        } else {
+            showToast.error(toastifyMessages.favorites.log);
         }
     }
 

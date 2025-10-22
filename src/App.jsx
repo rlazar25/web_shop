@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux'
 import { restoreUser } from './store/userSlice'
 import { restoreFavoriteAction } from './store/favoriteSlice'
 import { restoreCartAction } from './store/cartSlice'
+// toastify
+import { Bounce, ToastContainer } from 'react-toastify'
 
 // base URL
 axios.defaults.baseURL = "https://dummyjson.com"
@@ -41,6 +43,19 @@ const App = () => {
       <HeaderComponent />
       <Outlet />
       <FooterComponent />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   )
 }

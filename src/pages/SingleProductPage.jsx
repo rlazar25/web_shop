@@ -18,6 +18,9 @@ import AddCommentComponent from "../components/forms/AddCommentComponent";
 import LoaderComponent from "../components/LoaderComponent";
 // custome hook
 import useTopLoad from "../hooks/useTopLoad";
+// toastify
+import { showToast } from "../utils/toastifyHelper";
+import { toastifyMessages } from "../utils/toastifyMessages";
 
 const SingleProductPage = () => {
 
@@ -51,7 +54,14 @@ const SingleProductPage = () => {
   // add/remove favorite
   const handleFavorite = (product) => {
     if (isLogged) {
-      dispatch(handleFavoriteAction(product))
+      dispatch(handleFavoriteAction(product));
+      if (favoriteItem) {
+        showToast.error(toastifyMessages.favorites.removed);
+      } else {
+        showToast.success(toastifyMessages.favorites.added);
+      }
+    } else {
+      showToast.error(toastifyMessages.favorites.log);
     }
   }
 
